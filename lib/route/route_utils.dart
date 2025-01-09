@@ -43,7 +43,8 @@ class RouteUtils {
     String name, {
     Object? arguments,
   }) {
-    return Navigator.pushNamedAndRemoveUntil(context, name, (route) => false, arguments: arguments);
+    return Navigator.pushNamedAndRemoveUntil(context, name, (route) => false,
+        arguments: arguments);
   }
 
   static Future pushAndRemoveUntil(
@@ -64,7 +65,8 @@ class RouteUtils {
         (route) => false);
   }
 
-  static Future pushReplacement(BuildContext context, Route route, {Object? result}) {
+  static Future pushReplacement(BuildContext context, Route route,
+      {Object? result}) {
     return Navigator.pushReplacement(context, route, result: result);
   }
 
@@ -74,7 +76,8 @@ class RouteUtils {
     Object? result,
     Object? arguments,
   }) {
-    return Navigator.pushReplacementNamed(context, name, arguments: arguments, result: result);
+    return Navigator.pushReplacementNamed(context, name,
+        arguments: arguments, result: result);
   }
 
   static void pop(BuildContext context) {
