@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/datas/home_banner_data.dart';
+import 'package:flutter_application_1/pages/home/home_vm.dart';
 import 'package:flutter_application_1/route/route_utils.dart';
 import 'package:flutter_application_1/route/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +16,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<BannerItemData>? bannerList;
+
+  @override
+  void initState() {
+    super.initState();
+    initBannerData();
+  }
+
+  void initBannerData() async {
+    bannerList = await HomeViewModel.getBanner();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,12 +58,16 @@ class _HomePageState extends State<HomePage> {
       height: 180,
       child: Swiper(
         itemBuilder: (context, index) {
-          return Image.network(
-            "https://picsum.photos/350/150",
-            fit: BoxFit.fill,
+          return Container(
+            height: 150.h,
+            color: Colors.lightBlue,
+            child: Image.network(
+              bannerList?[index]?.imagePath ?? '',
+              fit: BoxFit.fill,
+            ),
           );
         },
-        itemCount: 3,
+        itemCount: bannerList?.length ?? 0,
         pagination: const SwiperPagination(),
         control: const SwiperControl(),
         autoplay: true,
