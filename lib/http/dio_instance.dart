@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'http_method.dart';
+import 'interceptor/print_log_interceptor.dart';
 import 'interceptor/rsp_interceptor.dart';
 
 class DioInstance {
@@ -33,7 +34,7 @@ class DioInstance {
       responseType: responseType,
       contentType: contentType,
     );
-    // _dio.interceptors.add(PrintLogInterceptor());
+    _dio.interceptors.add(PrintLogInterceptor());
     _dio.interceptors.add(RspInterceptor());
     _inited = true;
   }

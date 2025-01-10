@@ -4,6 +4,7 @@ import '../../repository/datas/home_banner_data.dart';
 import '../../repository/datas/home_list_data.dart';
 
 class HomeViewModel with ChangeNotifier {
+  int page = 1;
   List<HomeBannerData?>? bannerList;
   List<HomeListItemData>? listData = [];
 
@@ -13,20 +14,42 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getHomeList() async {
-    List<HomeListItemData>? list = await Api.instance.getHomeList();
-    listData?.addAll(list ?? []);
-    notifyListeners();
+  Future getHomeList(bool loadMore) async {
+    List<HomeListItemData>? list = await Api.instance.getHomeList("$page");
+    if (list != null && list.isNotEmpty) {
+      return list;
+    } else {
+      if (loadMore && page > 0) {
+        page--;
+      }
+      return [];
+    }
   }
 
-  Future getTopList() async {
+  Future<List<HomeListItemData>?> getTopList(bool loadMore) async {
+    if (loadMore) {
+      return [];
+    }
     List<HomeListItemData>? list = await Api.instance.getHomeTopList();
-    listData?.clear();
-    listData?.addAll(list ?? []);
+    return list;
   }
 
-  Future initListData() async {
-    await getTopList();
-    await getHomeList();
+  Future initListData(bool loadMore, {ValueChanged<bool>? callback}) async {
+    if (loadMore) {
+      page++;
+    } else {
+      page = 1;
+      listData?.clear();
+    }
+    getTopList(loadMore).then((topList) {
+      if (!loadMore) {
+        listData?.addAll(topList ?? []);
+      }
+      getHomeList(loadMore).then((allList) {
+        listData?.addAll(allList ?? []);
+        notifyListeners();
+        callback?.call(loadMore);
+      });
+    });
   }
 }
