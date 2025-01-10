@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_application_1/datas/home_banner_data.dart';
 import 'package:flutter_application_1/pages/home/home_vm.dart';
 import 'package:flutter_application_1/route/route_utils.dart';
@@ -16,36 +17,36 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<BannerItemData>? bannerList;
+  HomeViewModel viewModel = HomeViewModel();
 
   @override
   void initState() {
     super.initState();
-    initBannerData();
-  }
-
-  void initBannerData() async {
-    bannerList = await HomeViewModel.getBanner();
-    setState(() {});
+    viewModel.getBanner();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              _banner(),
-              ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return _listItemView();
-                },
-                itemCount: 10,
-              ),
-            ],
+    return ChangeNotifierProvider<HomeViewModel>(
+      create: (context) {
+        return viewModel;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _banner(),
+                ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return _listItemView();
+                  },
+                  itemCount: 10,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -53,26 +54,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _banner() {
-    return SizedBox(
-      width: double.infinity,
-      height: 180,
-      child: Swiper(
-        itemBuilder: (context, index) {
-          return Container(
-            height: 150.h,
-            color: Colors.lightBlue,
-            child: Image.network(
-              bannerList?[index]?.imagePath ?? '',
-              fit: BoxFit.fill,
-            ),
-          );
-        },
-        itemCount: bannerList?.length ?? 0,
-        pagination: const SwiperPagination(),
-        control: const SwiperControl(),
-        autoplay: true,
-      ),
-    );
+    return Consumer<HomeViewModel>(builder: (context, vm, child) {
+      return SizedBox(
+        width: double.infinity,
+        height: 180,
+        child: Swiper(
+          itemBuilder: (context, index) {
+            return Container(
+              height: 150.h,
+              color: Colors.lightBlue,
+              child: Image.network(
+                vm.bannerList?[index]?.imagePath ?? '',
+                fit: BoxFit.fill,
+              ),
+            );
+          },
+          itemCount: vm.bannerList?.length ?? 0,
+          pagination: const SwiperPagination(),
+          control: const SwiperControl(),
+          autoplay: true,
+        ),
+      );
+    });
   }
 
   Widget _listItemView() {
