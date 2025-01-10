@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/datas/home_list_data.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_application_1/datas/home_banner_data.dart';
 import 'package:flutter_application_1/pages/home/home_vm.dart';
@@ -22,7 +23,9 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+    viewModel.initDio();
     viewModel.getBanner();
+    viewModel.getHomeList();
   }
 
   @override
@@ -37,20 +40,26 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 _banner(),
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return _listItemView();
-                  },
-                  itemCount: 10,
-                ),
+                _homeListView(),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  Widget _homeListView() {
+    return Consumer<HomeViewModel>(builder: (context, vm, child) {
+      return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return _listItemView(vm.listData?[index]);
+        },
+        itemCount: vm.listData?.length ?? 0,
+      );
+    });
   }
 
   Widget _banner() {
@@ -78,7 +87,13 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Widget _listItemView() {
+  Widget _listItemView(HomeListItemData? item) {
+    String name;
+    if (item?.author?.isNotEmpty == true) {
+      name = item?.author ?? '';
+    } else {
+      name = item?.shareUser ?? '';
+    }
     // or use GestureDetector
     return InkWell(
         onTap: () {
@@ -100,6 +115,7 @@ class _HomePageState extends State<HomePage> {
               border: Border.all(color: Colors.black12, width: 0.5.r),
               borderRadius: BorderRadius.all(Radius.circular(5.r))),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -114,12 +130,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    '作者',
+                    name,
                     style: TextStyle(color: Colors.black),
                   ),
                   Expanded(child: SizedBox()),
                   Text(
-                    '2025-01-09 10:00',
+                    item?.niceShareDate ?? '',
                     style: TextStyle(color: Colors.black, fontSize: 12.sp),
                   ),
                   Padding(padding: EdgeInsets.only(right: 10.w)),
@@ -128,15 +144,17 @@ class _HomePageState extends State<HomePage> {
                           color: Colors.blue, fontWeight: FontWeight.bold)),
                 ],
               ),
+              SizedBox(height: 5.h),
               Text(
-                '泰国今年开放菠菜拍照了，招这些人应该是过去做菠菜的。',
+                item?.title ?? '',
                 style: TextStyle(color: Colors.black, fontSize: 14.sp),
               ),
+              SizedBox(height: 5.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '分类',
+                    item?.chapterName ?? '',
                     style: TextStyle(color: Colors.green, fontSize: 12.sp),
                   ),
                   Expanded(child: SizedBox()),
