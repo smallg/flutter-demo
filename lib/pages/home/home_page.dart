@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/common_ui/smart_refresh/smart_refresh_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../common_ui/smart_refresh/smart_refresh_widget.dart';
 import '../../repository/datas/home_list_data.dart';
 import '../../route/route_utils.dart';
 import '../../route/routes.dart';

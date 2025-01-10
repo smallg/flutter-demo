@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 
-import '../pages/home/home_page.dart';
+import '../pages/tab_page.dart';
 import '../pages/web_view_page.dart';
 
 class RoutePath {
-  static const String home = '/';
+  static const String tap = '/';
   static const String webViewPage = '/web_view_page';
 }
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RoutePath.home:
-        return pageRoute(HomePage(), settings: settings);
+      case RoutePath.tap:
+        return pageRoute(TabPage(), settings: settings);
       case RoutePath.webViewPage:
         return pageRoute(WebViewPage(title: 'from home'), settings: settings);
     }
