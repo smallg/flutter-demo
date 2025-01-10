@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/common_ui/smart_refresh/smart_refresh_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:provider/provider.dart';
@@ -46,12 +47,8 @@ class _HomePageState extends State<HomePage> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: SmartRefresher(
+          child: SmartRefreshWidget(
             controller: refreshController,
-            enablePullUp: true,
-            enablePullDown: true,
-            header: ClassicHeader(),
-            footer: ClassicFooter(),
             onLoading: () {
               refreshOrLoad(true);
             },
