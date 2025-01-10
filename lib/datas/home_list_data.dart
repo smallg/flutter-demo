@@ -1,38 +1,4 @@
 
-class HomeData {
-  HomeListData? data;
-  int? errorCode;
-  String? errorMsg;
-
-  HomeData({this.data, this.errorCode, this.errorMsg});
-
-  HomeData.fromJson(Map<String, dynamic> json) {
-    if(json["data"] is Map) {
-      data = json["data"] == null ? null : HomeListData.fromJson(json["data"]);
-    }
-    if(json["errorCode"] is int) {
-      errorCode = json["errorCode"];
-    }
-    if(json["errorMsg"] is String) {
-      errorMsg = json["errorMsg"];
-    }
-  }
-
-  static List<HomeData> fromList(List<Map<String, dynamic>> list) {
-    return list.map(HomeData.fromJson).toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    if(data != null) {
-      _data["data"] = data?.toJson();
-    }
-    _data["errorCode"] = errorCode;
-    _data["errorMsg"] = errorMsg;
-    return _data;
-  }
-}
-
 class HomeListData {
   int? curPage;
   List<HomeListItemData>? datas;

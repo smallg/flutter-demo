@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/route/route_utils.dart';
-import 'package:flutter_application_1/route/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
+
+import 'route/route_utils.dart';
+import 'route/routes.dart';
 
 Size get designSize {
   final firstView = WidgetsBinding.instance.platformDispatcher.views.first;

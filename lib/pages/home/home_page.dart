@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/datas/home_list_data.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_application_1/datas/home_banner_data.dart';
-import 'package:flutter_application_1/pages/home/home_vm.dart';
-import 'package:flutter_application_1/route/route_utils.dart';
-import 'package:flutter_application_1/route/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:provider/provider.dart';
+import '../../datas/home_list_data.dart';
+import '../../route/route_utils.dart';
+import '../../route/routes.dart';
+import 'home_vm.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -23,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    viewModel.initDio();
     viewModel.getBanner();
     viewModel.getHomeList();
   }

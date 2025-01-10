@@ -1,34 +1,17 @@
-class HomeBannerData {
-  List<BannerItemData>? data;
-  int? errorCode;
-  String? errorMsg;
 
-  HomeBannerData({this.data, this.errorCode, this.errorMsg});
-
-  HomeBannerData.fromJson(Map<String, dynamic> json) {
-    data = json["data"] == null
-        ? null
-        : (json["data"] as List).map((e) => BannerItemData.fromJson(e)).toList();
-    errorCode = json["errorCode"];
-    errorMsg = json["errorMsg"];
-  }
-
-  static List<HomeBannerData> fromList(List<Map<String, dynamic>> list) {
-    return list.map(HomeBannerData.fromJson).toList();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> _data = <String, dynamic>{};
-    if (data != null) {
-      _data["data"] = data?.map((e) => e.toJson()).toList();
+class HomeBannerListData{
+  List<HomeBannerData?>? bannerList;
+  HomeBannerListData.fromJson(dynamic json) {
+    if (json is List){
+      bannerList = [];
+      json.forEach((element) {
+        bannerList?.add(HomeBannerData.fromJson(element));
+      });
     }
-    _data["errorCode"] = errorCode;
-    _data["errorMsg"] = errorMsg;
-    return _data;
   }
 }
 
-class BannerItemData {
+class HomeBannerData {
   String? desc;
   int? id;
   String? imagePath;
@@ -38,29 +21,37 @@ class BannerItemData {
   int? type;
   String? url;
 
-  BannerItemData(
-      {this.desc,
-      this.id,
-      this.imagePath,
-      this.isVisible,
-      this.order,
-      this.title,
-      this.type,
-      this.url});
+  HomeBannerData({this.desc, this.id, this.imagePath, this.isVisible, this.order, this.title, this.type, this.url});
 
-  BannerItemData.fromJson(Map<String, dynamic> json) {
-    desc = json["desc"];
-    id = json["id"];
-    imagePath = json["imagePath"];
-    isVisible = json["isVisible"];
-    order = json["order"];
-    title = json["title"];
-    type = json["type"];
-    url = json["url"];
+  HomeBannerData.fromJson(Map<String, dynamic> json) {
+    if(json["desc"] is String) {
+      desc = json["desc"];
+    }
+    if(json["id"] is int) {
+      id = json["id"];
+    }
+    if(json["imagePath"] is String) {
+      imagePath = json["imagePath"];
+    }
+    if(json["isVisible"] is int) {
+      isVisible = json["isVisible"];
+    }
+    if(json["order"] is int) {
+      order = json["order"];
+    }
+    if(json["title"] is String) {
+      title = json["title"];
+    }
+    if(json["type"] is int) {
+      type = json["type"];
+    }
+    if(json["url"] is String) {
+      url = json["url"];
+    }
   }
 
-  static List<BannerItemData> fromList(List<Map<String, dynamic>> list) {
-    return list.map(BannerItemData.fromJson).toList();
+  static List<HomeBannerData> fromList(List<Map<String, dynamic>> list) {
+    return list.map(HomeBannerData.fromJson).toList();
   }
 
   Map<String, dynamic> toJson() {

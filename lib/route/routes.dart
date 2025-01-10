@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/home/home_page.dart';
-import 'package:flutter_application_1/pages/web_view_page.dart';
+
+import '../pages/home/home_page.dart';
+import '../pages/web_view_page.dart';
 
 class RoutePath {
   static const String home = '/';
