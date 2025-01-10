@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 import 'package:provider/provider.dart';
-import '../../datas/home_list_data.dart';
+import '../../repository/datas/home_list_data.dart';
 import '../../route/route_utils.dart';
 import '../../route/routes.dart';
 import 'home_vm.dart';
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     viewModel.getBanner();
-    viewModel.getHomeList();
+    viewModel.initListData();
   }
 
   @override
@@ -137,9 +137,11 @@ class _HomePageState extends State<HomePage> {
                     style: TextStyle(color: Colors.black, fontSize: 12.sp),
                   ),
                   Padding(padding: EdgeInsets.only(right: 10.w)),
-                  Text('置顶',
-                      style: TextStyle(
-                          color: Colors.blue, fontWeight: FontWeight.bold)),
+                  item?.type?.toInt() == 1
+                      ? Text('置顶',
+                          style: TextStyle(
+                              color: Colors.blue, fontWeight: FontWeight.bold))
+                      : SizedBox(),
                 ],
               ),
               SizedBox(height: 5.h),
