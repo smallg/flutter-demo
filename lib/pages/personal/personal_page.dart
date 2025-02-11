@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/auth/login_page.dart';
+import 'package:flutter_application_1/route/route_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PersonalPage extends StatefulWidget {
@@ -17,7 +19,9 @@ class _PersonalPageState extends State<PersonalPage> {
       body: SafeArea(
         child: Column(
           children: [
-            _header(),
+            _header(() {
+              RouteUtils.push(context, LoginPage());
+            }),
             _settingItem('我的收藏', () {}),
             _settingItem('检查更新', () {}),
             _settingItem('关于我们', () {}),
@@ -59,7 +63,7 @@ class _PersonalPageState extends State<PersonalPage> {
     );
   }
 
-  Widget _header() {
+  Widget _header(GestureTapCallback? onTap) {
     return Container(
       alignment: Alignment.center,
       color: Colors.teal,
@@ -68,20 +72,26 @@ class _PersonalPageState extends State<PersonalPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(35.r)),
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: 70.r,
-              height: 70.r,
-              fit: BoxFit.fill,
+          GestureDetector(
+            onTap: onTap,
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(35.r)),
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 70.r,
+                height: 70.r,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
           SizedBox(height: 6.h),
-          Text(
-            '未登录',
-            style: TextStyle(color: Colors.white, fontSize: 13.sp),
-          )
+          GestureDetector(
+            onTap: onTap,
+            child: Text(
+              '未登录',
+              style: TextStyle(color: Colors.white, fontSize: 13.sp),
+            ),
+          ),
         ],
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-///本地持久化存储工具类
 class SpUtils {
   SpUtils._();
   static Future<bool> saveStringList(String key, List<String> values) async {

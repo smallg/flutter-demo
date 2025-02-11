@@ -5,6 +5,7 @@ import 'datas/common_website_data.dart';
 import 'datas/home_banner_data.dart';
 import 'datas/home_list_data.dart';
 import 'datas/search_hot_keys_data.dart';
+import 'datas/user_info_model.dart';
 
 class Api {
   static Api instance = Api._();
@@ -42,5 +43,25 @@ class Api {
     SearchHotKeyListModel hotKeysListData =
         SearchHotKeyListModel.fromJson(response.data);
     return hotKeysListData.list;
+  }
+
+  Future<dynamic> register({String? name, String? pwd, String? rePwd}) async {
+    Response response = await DioInstance.instance().post(
+        path: 'user/register',
+        queryParameters: {
+          'username': name,
+          'password': pwd,
+          'repassword': rePwd
+        });
+    return response.data;
+  }
+
+  Future<UserInfoModel> login({String? name, String? pwd}) async {
+    Response response =
+        await DioInstance.instance().post(path: 'user/login', queryParameters: {
+      'username': name,
+      'password': pwd,
+    });
+    return UserInfoModel.fromJson(response.data);
   }
 }
