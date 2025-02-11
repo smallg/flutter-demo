@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+TextStyle whiteTextStyle14 = TextStyle(color: Colors.white, fontSize: 14.sp);
+TextStyle whiteTextStyle15 = TextStyle(color: Colors.white, fontSize: 15.sp);
+TextStyle titleTextStyle15 = TextStyle(color: Colors.black, fontSize: 15.sp);
+TextStyle blackTextStyle13 = TextStyle(fontSize: 13.sp, color: Colors.black);
+Text normalText(String? text) {
+  return Text(
+    text ?? "",
+    style: titleTextStyle15,
+  );
+}
+
 Widget commonInput({
   String? labelText,
   TextEditingController? controller,

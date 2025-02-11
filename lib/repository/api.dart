@@ -4,6 +4,8 @@ import '../http/dio_instance.dart';
 import 'datas/common_website_data.dart';
 import 'datas/home_banner_data.dart';
 import 'datas/home_list_data.dart';
+import 'datas/knowledge_detail_list_model.dart';
+import 'datas/knowledge_list_model.dart';
 import 'datas/search_hot_keys_data.dart';
 import 'datas/user_info_model.dart';
 
@@ -63,5 +65,19 @@ class Api {
       'password': pwd,
     });
     return UserInfoModel.fromJson(response.data);
+  }
+
+  Future<List<KnowledgeModel?>?> knowledgeList() async {
+    Response response = await DioInstance.instance().get(path: "tree/json");
+    var model = KnowledgeListModel.fromJson(response.data);
+    return model.list;
+  }
+
+  Future<List<KnowledgeDetailItem>?> knowledgeDetailList(
+      String id, String pageCount) async {
+    Response response = await DioInstance.instance()
+        .get(path: "article/list/$pageCount/json", param: {"cid": id});
+    var model = KnowledgeDetailListModel.fromJson(response.data);
+    return model.datas;
   }
 }
