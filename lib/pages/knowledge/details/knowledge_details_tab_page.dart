@@ -57,7 +57,6 @@ class _KnowledgeDetailsTabPageState extends State<KnowledgeDetailsTabPage>
     );
   }
 
-  ///根据传进来的数据生成对应数量的tabPage
   List<Widget> children() {
     return widget.params?.map((e) {
           return DetailTabChildPage(id: e.id);

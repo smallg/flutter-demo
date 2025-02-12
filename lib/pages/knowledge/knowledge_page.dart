@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -101,8 +100,11 @@ class _KnowledgePageState extends State<KnowledgePage> {
                 ],
               ),
             ),
-            Image.asset("assets/images/img_arrow_right.png",
-                height: 24.r, width: 24.r)
+            Image.asset(
+              "assets/images/img_arrow_right.png",
+              height: 24.r,
+              width: 24.r,
+            )
           ],
         ),
       ),
