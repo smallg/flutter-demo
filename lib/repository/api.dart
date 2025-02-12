@@ -80,4 +80,22 @@ class Api {
     var model = KnowledgeDetailListModel.fromJson(response.data);
     return model.datas;
   }
+
+  Future<bool?> collect(String? id) async {
+    Response response =
+        await DioInstance.instance().post(path: 'lg/collect/$id/json');
+    if (response.data != null && response.data is bool) {
+      return response.data;
+    }
+    return false;
+  }
+
+  Future<bool?> unCollect(String? id) async {
+    Response response =
+        await DioInstance.instance().post(path: 'lg/uncollect_originId/$id/json');
+    if (response.data != null && response.data is bool) {
+      return response.data;
+    }
+    return false;
+  }
 }

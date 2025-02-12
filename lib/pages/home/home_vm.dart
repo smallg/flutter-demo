@@ -52,4 +52,25 @@ class HomeViewModel with ChangeNotifier {
       });
     });
   }
+
+  Future<dynamic> collect(String? id, int index) async {
+    bool? result = await Api.instance.collect(id);
+    if (result == true) {
+      listData?[index].collect = true;
+      notifyListeners();
+    }
+  }
+
+  Future<dynamic> collectOrNot(bool isCollect, String? id, int index) async {
+    bool? result;
+    if (isCollect) {
+      result = await Api.instance.collect(id);
+    } else {
+      result = await Api.instance.unCollect(id);
+    }
+    if (result == true) {
+      listData?[index].collect = isCollect;
+      notifyListeners();
+    }
+  }
 }
