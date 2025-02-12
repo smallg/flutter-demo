@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/auth/login_page.dart';
+import 'package:flutter_application_1/pages/personal/person_vm.dart';
 import 'package:flutter_application_1/route/route_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:oktoast/oktoast.dart';
+import 'package:provider/provider.dart';
 
 class PersonalPage extends StatefulWidget {
   const PersonalPage({super.key});
@@ -13,19 +16,48 @@ class PersonalPage extends StatefulWidget {
 }
 
 class _PersonalPageState extends State<PersonalPage> {
+  PersonViewModel viewModel = PersonViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.initData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            _header(() {
-              RouteUtils.push(context, LoginPage());
-            }),
-            _settingItem('我的收藏', () {}),
-            _settingItem('检查更新', () {}),
-            _settingItem('关于我们', () {}),
-          ],
+    return ChangeNotifierProvider(
+      create: (context) {
+        return viewModel;
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              _header(() {
+                if (viewModel.shouldLogin == true) {
+                  RouteUtils.push(context, LoginPage());
+                }
+              }),
+              _settingItem('我的收藏', () {}),
+              _settingItem('检查更新', () {}),
+              _settingItem('关于我们', () {}),
+              Consumer<PersonViewModel>(builder: (context, vm, child) {
+                if (vm.shouldLogin) {
+                  return SizedBox();
+                }
+                return _settingItem('退出登录', () {
+                  viewModel.logout((value) {
+                    if (value == true) {
+                      RouteUtils.pushAndRemoveUntil(context, LoginPage());
+                    } else {
+                      showToast("退出失败");
+                    }
+                  });
+                });
+              })
+            ],
+          ),
         ),
       ),
     );
@@ -85,13 +117,15 @@ class _PersonalPageState extends State<PersonalPage> {
             ),
           ),
           SizedBox(height: 6.h),
-          GestureDetector(
-            onTap: onTap,
-            child: Text(
-              '未登录',
-              style: TextStyle(color: Colors.white, fontSize: 13.sp),
-            ),
-          ),
+          Consumer<PersonViewModel>(builder: (context, vm, child) {
+            return GestureDetector(
+              onTap: onTap,
+              child: Text(
+                vm.username ?? '123',
+                style: TextStyle(color: Colors.white, fontSize: 13.sp),
+              ),
+            );
+          }),
         ],
       ),
     );

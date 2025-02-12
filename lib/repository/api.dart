@@ -67,6 +67,15 @@ class Api {
     return UserInfoModel.fromJson(response.data);
   }
 
+  Future<bool?> logout() async {
+    Response response =
+        await DioInstance.instance().get(path: 'user/logout/json');
+    if (response.data != null && response.data is bool) {
+      return response.data;
+    }
+    return false;
+  }
+
   Future<List<KnowledgeModel?>?> knowledgeList() async {
     Response response = await DioInstance.instance().get(path: "tree/json");
     var model = KnowledgeListModel.fromJson(response.data);
@@ -91,8 +100,8 @@ class Api {
   }
 
   Future<bool?> unCollect(String? id) async {
-    Response response =
-        await DioInstance.instance().post(path: 'lg/uncollect_originId/$id/json');
+    Response response = await DioInstance.instance()
+        .post(path: 'lg/uncollect_originId/$id/json');
     if (response.data != null && response.data is bool) {
       return response.data;
     }
