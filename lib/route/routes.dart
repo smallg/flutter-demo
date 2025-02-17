@@ -8,6 +8,7 @@ class RoutePath {
   static const String webViewPage = '/web_view_page';
   static const String loginPage = '/login_page';
   static const String registerPage = '/register_page';
+  static const String searchPage = '/search_page';
 }
 
 class Routes {
@@ -20,6 +21,8 @@ class Routes {
       case RoutePath.loginPage:
         return pageRoute(WebViewPage(title: 'from home'), settings: settings);
       case RoutePath.registerPage:
+        return pageRoute(WebViewPage(title: 'from home'), settings: settings);
+      case RoutePath.searchPage:
         return pageRoute(WebViewPage(title: 'from home'), settings: settings);
     }
     return pageRoute(

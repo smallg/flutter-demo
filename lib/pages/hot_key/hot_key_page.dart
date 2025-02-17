@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/hot_key/hot_key_vm.dart';
+import 'package:flutter_application_1/pages/search/search_page.dart';
 import 'package:flutter_application_1/pages/web_view_page.dart';
 import 'package:flutter_application_1/route/route_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,19 +57,24 @@ class _HotKeyPageState extends State<HotKeyPage> {
                               TextStyle(fontSize: 14.sp, color: Colors.black),
                         ),
                         Expanded(child: SizedBox()),
-                        Image.asset(
-                          'assets/images/icon_search.png',
-                          width: 30.r,
-                          height: 30.r,
+                        GestureDetector(
+                          onTap: () {
+                            RouteUtils.push(context, const SearchPage());
+                          },
+                          child: Image.asset(
+                            'assets/images/icon_search.png',
+                            width: 30.r,
+                            height: 30.r,
+                          ),
                         ),
                       ],
                     ),
                   ),
                   Consumer<HotKeyViewModel>(builder: (context, vm, child) {
-                    return _gridView(false,
-                        keyList: vm.keyList, itemTap: (value) {
-                          // RouteUtils.push(context, WebViewPage(title: '', url: value));
-                        });
+                    return _gridView(false, keyList: vm.keyList,
+                        itemTap: (value) {
+                      RouteUtils.push(context, SearchPage(keyword: value));
+                    });
                   }),
                   Container(
                     height: 45.h,
@@ -87,10 +93,11 @@ class _HotKeyPageState extends State<HotKeyPage> {
                     ),
                   ),
                   Consumer<HotKeyViewModel>(builder: (context, vm, child) {
-                    return _gridView(true,
-                        websiteList: vm.websiteList, itemTap: (value) {
-                          RouteUtils.push(context, WebViewPage(title: '常用网站', url: value));
-                        });
+                    return _gridView(true, websiteList: vm.websiteList,
+                        itemTap: (value) {
+                      RouteUtils.push(
+                          context, WebViewPage(title: '常用网站', url: value));
+                    });
                   }),
                 ],
               ),

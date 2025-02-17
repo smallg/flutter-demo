@@ -6,6 +6,7 @@ import 'datas/home_banner_data.dart';
 import 'datas/home_list_data.dart';
 import 'datas/knowledge_detail_list_model.dart';
 import 'datas/knowledge_list_model.dart';
+import 'datas/search_data.dart';
 import 'datas/search_hot_keys_data.dart';
 import 'datas/user_info_model.dart';
 
@@ -106,5 +107,13 @@ class Api {
       return response.data;
     }
     return false;
+  }
+
+  Future<List<SearchListData>?> searchList(
+      String? pageCount, String? keyword) async {
+    Response response = await DioInstance.instance()
+        .post(path: 'article/query/0/json', queryParameters: {'k': keyword});
+    var searchData = SearchData.fromJson(response.data);
+    return searchData.datas;
   }
 }
