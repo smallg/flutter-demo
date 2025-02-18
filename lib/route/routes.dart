@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../pages/my_collects/my_collects_page.dart';
 import '../pages/tab_page.dart';
 import '../pages/web_view_page.dart';
 
@@ -9,6 +10,9 @@ class RoutePath {
   static const String loginPage = '/login_page';
   static const String registerPage = '/register_page';
   static const String searchPage = '/search_page';
+  static const String my_collects = "/my_collects";
+  static const String web_view = "/web_view";
+  static const String about_us = "/about_us";
 }
 
 class Routes {
@@ -24,6 +28,8 @@ class Routes {
         return pageRoute(WebViewPage(title: 'from home'), settings: settings);
       case RoutePath.searchPage:
         return pageRoute(WebViewPage(title: 'from home'), settings: settings);
+      case RoutePath.my_collects:
+        return pageRoute(const MyCollectsPage(), settings: settings);
     }
     return pageRoute(
       Scaffold(

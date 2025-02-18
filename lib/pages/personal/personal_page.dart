@@ -6,6 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 import 'package:provider/provider.dart';
 
+import '../../route/routes.dart';
+import '../my_collects/my_collects_page.dart';
+
 class PersonalPage extends StatefulWidget {
   const PersonalPage({super.key});
 
@@ -39,7 +42,13 @@ class _PersonalPageState extends State<PersonalPage> {
                   RouteUtils.push(context, LoginPage());
                 }
               }),
-              _settingItem('我的收藏', () {}),
+              _settingItem('我的收藏', () {
+                if (viewModel.shouldLogin == true) {
+                  RouteUtils.push(context, const LoginPage());
+                } else {
+                  RouteUtils.pushForNamed(context, RoutePath.my_collects);
+                }
+              }),
               _settingItem('检查更新', () {}),
               _settingItem('关于我们', () {}),
               Consumer<PersonViewModel>(builder: (context, vm, child) {

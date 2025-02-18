@@ -6,6 +6,7 @@ import 'datas/home_banner_data.dart';
 import 'datas/home_list_data.dart';
 import 'datas/knowledge_detail_list_model.dart';
 import 'datas/knowledge_list_model.dart';
+import 'datas/my_collects_model.dart';
 import 'datas/search_data.dart';
 import 'datas/search_hot_keys_data.dart';
 import 'datas/user_info_model.dart';
@@ -115,5 +116,24 @@ class Api {
         .post(path: 'article/query/0/json', queryParameters: {'k': keyword});
     var searchData = SearchData.fromJson(response.data);
     return searchData.datas;
+  }
+
+  Future<List<MyCollectItemModel>?> getMyCollects(String pageCount) async {
+    Response rsp = await DioInstance.instance()
+        .get(path: "lg/collect/list/$pageCount/json");
+    MyCollectsModel? model = MyCollectsModel.fromJson(rsp.data);
+    if (model.datas != null && model.datas?.isNotEmpty == true) {
+      return model.datas;
+    }
+    return [];
+  }
+
+  Future<bool> cancelCollect(String id) async {
+    Response response = await DioInstance.instance()
+        .post(path: "lg/uncollect_originId/$id/json");
+    if (response.data != null && response.data == true) {
+      return true;
+    }
+    return false;
   }
 }
