@@ -6,6 +6,7 @@ import 'package:flutter_application_1/route/route_utils.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
+import '../../common_ui/loading.dart';
 import '../../repository/datas/common_website_data.dart';
 import '../../repository/datas/search_hot_keys_data.dart';
 
@@ -24,7 +25,9 @@ class _HotKeyPageState extends State<HotKeyPage> {
   @override
   void initState() {
     super.initState();
+    Loading.showLoading();
     viewModel.initData();
+    Loading.dismissAll();
   }
 
   @override

@@ -6,27 +6,30 @@ class Loading {
   Loading._();
 
   static Future showLoading({Duration? duration}) async {
-    showToastWidget(
-      Container(
-        color: Colors.transparent,
-        constraints: const BoxConstraints.expand(),
-        child: Align(
-          child: Container(
-            padding: EdgeInsets.all(20.w),
-            decoration: BoxDecoration(
-              color: Colors.black54,
-              borderRadius: BorderRadius.circular(10.r),
-            ),
-            child: CircularProgressIndicator(
-              strokeWidth: 2.w,
-              valueColor: const AlwaysStoppedAnimation(Colors.white),
+    // Schedule the toast display after the build phase
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showToastWidget(
+        Container(
+          color: Colors.transparent,
+          constraints: const BoxConstraints.expand(),
+          child: Align(
+            child: Container(
+              padding: EdgeInsets.all(20.w),
+              decoration: BoxDecoration(
+                color: Colors.black54,
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+              child: CircularProgressIndicator(
+                strokeWidth: 2.w,
+                valueColor: const AlwaysStoppedAnimation(Colors.white),
+              ),
             ),
           ),
         ),
-      ),
-      handleTouch: true,
-      duration: duration ?? const Duration(days: 1),
-    );
+        handleTouch: true,
+        duration: duration ?? const Duration(days: 1),
+      );
+    });
   }
 
   static void dismissAll() {
