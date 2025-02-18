@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
 import '../../../common_ui/common_style.dart';
 import '../../../common_ui/smart_refresh/smart_refresh_widget.dart';
+import '../../../common_ui/web/webview_page.dart';
+import '../../../common_ui/web/webview_widget.dart';
 import '../../../repository/datas/knowledge_detail_list_model.dart';
 import '../../../route/route_utils.dart';
-import '../../web_view_page.dart';
 import 'knowledge_details_view_model.dart';
 
 class DetailTabChildPage extends StatefulWidget {
@@ -66,14 +64,14 @@ class _DetailTabChildPageState extends State<DetailTabChildPage> {
                     itemCount: value.detailList.length,
                     itemBuilder: (context, index) {
                       return _item(value.detailList[index], onTap: () {
-                        // RouteUtils.push(
-                        //   context,
-                        //   WebViewPage(
-                        //       loadResource: value.detailList[index].link ?? "",
-                        //       webViewType: WebViewType.URL,
-                        //       showTitle: true,
-                        //       title: value.detailList[index].title),
-                        // );
+                        RouteUtils.push(
+                          context,
+                          WebViewPage(
+                              loadResource: value.detailList[index].link ?? "",
+                              webViewType: WebViewType.URL,
+                              showTitle: true,
+                              title: value.detailList[index].title),
+                        );
                       });
                     }));
           })),
