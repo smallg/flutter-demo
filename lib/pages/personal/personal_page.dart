@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/about_us/about_us_page.dart';
 import 'package:flutter_application_1/pages/auth/login_page.dart';
 import 'package:flutter_application_1/pages/personal/person_vm.dart';
 import 'package:flutter_application_1/route/route_utils.dart';
@@ -50,7 +51,9 @@ class _PersonalPageState extends State<PersonalPage> {
                 }
               }),
               _settingItem('检查更新', () {}),
-              _settingItem('关于我们', () {}),
+              _settingItem('关于我们', () {
+                RouteUtils.push(context, AboutUsPage());
+              }),
               Consumer<PersonViewModel>(builder: (context, vm, child) {
                 if (vm.shouldLogin) {
                   return SizedBox();

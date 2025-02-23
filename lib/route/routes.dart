@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/pages/about_us/about_us_page.dart';
 
 import '../pages/my_collects/my_collects_page.dart';
 import '../pages/tab_page.dart';
@@ -30,6 +31,8 @@ class Routes {
         return pageRoute(WebViewPage(title: 'from home'), settings: settings);
       case RoutePath.my_collects:
         return pageRoute(const MyCollectsPage(), settings: settings);
+      case RoutePath.about_us:
+        return pageRoute(const AboutUsPage(), settings: settings);
     }
     return pageRoute(
       Scaffold(
